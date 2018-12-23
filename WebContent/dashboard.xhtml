@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	
+	
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+	
+	<title>login system</title>
+	<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'></link>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"></link>
+
+  
+      <link rel="stylesheet" href="css/style.css"></link>
+      <link rel="stylesheet" href="css/speech-input.css"></link>
+      
+       <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'/>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'/>
+
+    <!-- Theme CSS -->
+    <link href="css/agency.min.css" rel="stylesheet"/>
+      
+</h:head>
+
+<h:body id="page-top" class="index" >
+
+<f:view >
+	
+	
+<h:form >	
+	<!-- /////////////////////////////////////////////////// -->
+	 <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <img src="img/logo (2).png" class="img-responsive" alt=""/>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#services">Services</a>
+                    </li>
+           
+                    <li>
+                        <a class="page-scroll" href="#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#team">Team</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                    <li>
+                    <h:commandButton value="logout" action="#{loginPage2.logout}">
+                    </h:commandButton>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+</h:form>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in">Welcome "<h:outputText value="#{loginPage2.lastName}"></h:outputText>"<br/>
+                To Our Tape Drive!<br/><br/>
+                your id:<h:outputText value="#{loginPage2.id}"></h:outputText><br/>
+                </div>
+                <div class="intro-heading">It's Nice To Meet You</div>
+                
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Services</h2>
+                    <h3 class="section-subheading text-muted">upload the file to secure them </h3>
+                </div>
+            </div>
+            <div class="row text-center">
+<h:form  >
+
+		<p:growl id="messages" showDetail="true" />
+<p:fileUpload value="#{loginPage2.file1}" mode="simple" skinSimple="true"/>
+<h:commandButton value="upload" ajax="false" actionListener="#{loginPage2.upload}"></h:commandButton>
+
+</h:form>
+<br/>
+<br/>
+<h:form >
+<h:commandButton value="Refresh table" ajax="false" actionListener="#{loginPage2.refresh}"></h:commandButton>
+		
+		
+		<h:dataTable var="dat" value="#{loginPage2.datas}" class="table">
+		<h:column>
+		<f:facet name = "header">filename</f:facet> 
+		<h:outputText value="#{dat.filename}"></h:outputText>
+		</h:column>
+		<h:column>
+		<f:facet name = "header">download</f:facet> 
+		
+		<p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+        <p:fileDownload value="#{dat.file}" />
+    </p:commandButton>
+		</h:column>
+		
+		</h:dataTable>
+		
+		
+		<script type="text/javascript">
+function start() {
+    PF('statusDialog').show();
+}
+ 
+function stop() {
+    PF('statusDialog').hide();
+}
+</script>
+		
+</h:form>
+
+            </div>
+        </div>
+    </section>
+
+   
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">About</h2>
+                    <h3 class="section-subheading text-muted">Know more about tape drive</h3>
+                </div>
+            </div>
+            <div class="row">
+                In this technical world, the need for data security and privacy plays a vital role. With the concept of biometrics, various methods have been adopted for providing security and privacy to the data. Even though there are lot of methods adopted there is minimal security for voice recognition passwords, as they can be easily mimicked. To improve the security and privacy for the data that uses voice passwords, this application has been developed with the collaboration of Biometric methods such as Pattern Recognition and Voice Recognition which would help in protecting the data from unauthorized user access. Privacy and Security as a key factor for voice passwords, the design of this application will help us to improve the security and privacy for the user’s data to the next level. Thus this application creates a user-friendly enviroment and enhances the secuirty
+objective
+The main objective of this application is to develop a Voice Recognition login System, it uses Pattern Recognition with the jumbling of numbers to generate a new sequence which can be used as a password whenever the user makes an attempt to login.
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Our Amazing Team</h2>
+                    <h3 class="section-subheading text-muted">There is no i in team, but there is no team without individuals.</h3>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="img/team/1.jpeg" class="img-responsive img-circle" alt=""/>
+                        <h4>Prasanthi paladugu</h4>
+                        
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="img/team/2.jpeg" class="img-responsive img-circle" alt=""/>
+                        <h4>Chaitanya Karumuri</h4>
+                        
+                        
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="img/team/3.jpeg" class="img-responsive img-circle" alt=""/>
+                        <h4>Pratyusha Vegiraju</h4>
+                        
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+    </section>
+
+  
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Contact Us</h2>
+                    <h3 class="section-subheading text-muted">Email: karumuri.chaitanya@gmail.com</h3>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"  ></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/agency.min.js"></script>
+	
+	<!-- //////////////////////////////////////////////// -->
+	
+    
+    <script src="js/speech-input.js"></script>
+ 
+    </f:view>
+</h:body>
+</html>
